@@ -1,0 +1,50 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de ambiente
+.env
+.env.*
+
+# Pasta de dados (se for dado bruto / grande)
+data/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build / distribuição
+build/
+dist/
+*.egg-info/
+
+# Test / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Mypy
+.mypy_cache/
+
+# Ruff / flake8
+.ruff_cache/
+
+# Arquivos temporários
+*.tmp
+*.swp
