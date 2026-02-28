@@ -12,6 +12,7 @@ class DataDownloader:
 
     def __init__(self, save_path: str):
         self.save_path = save_path
+        self.session = requests.Session() # Criar uma sessão para reutilizar conexões e melhorar o desempenho
 
     @staticmethod
     def get_urls():
@@ -25,20 +26,28 @@ class DataDownloader:
     def _fetch(self, year_url):
         year, url = year_url
         logger.info("Iniciando download de %s", year)
+
+
+
         try:
-            r = requests.get(url, timeout=30, stream=True)
-            r.raise_for_status()
+            response = self.session.get(url, timeout=30, stream=True)
+            response.raise_for_status()
+
             filename = f"dados_boston_{year}.csv"
             path = os.path.join(self.save_path, filename)
-            self._save_response(r, path)
+            self._save_response(response, path)
+
             logger.info("Arquivo %s salvo com sucesso.", filename)
+
         except requests.RequestException as e:
             logger.error("Erro ao baixar %s: %s", url, e)
 
     def download_all(self) -> None:
         os.makedirs(self.save_path, exist_ok=True)
+
         for year_url in enumerate(self.get_urls(), start=2015):
             self._fetch(year_url)
+    
 
 
 class CompactArchive:
@@ -59,19 +68,19 @@ class CompactArchive:
                     if os.path.isfile(caminho_arquivo):
                         arquivo_zip.write(caminho_arquivo, arcname=nome)
             logger.info("Compactação concluída com sucesso. Arquivo criado: %s", nomezip)
-            
+
         except Exception as e:
             logger.error("Erro ao compactar os arquivos: %s", e)
 
         return len([f for f in nomesarquivos if os.path.isfile(os.path.join(self.path, f))])
 
 
-if __name__ == "__main__":
-    # configuração básica de logging para ver o que acontece
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
+# if __name__ == "__main__":
+#     # configuração básica de logging para ver o que acontece
+#     logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 
-    # downloader = DataDownloader(save_path="./data")
-    # downloader.download_all()
+#     downloader = DataDownloader(save_path="./data")
+#     downloader.download_all()
 
-    compact_archive = CompactArchive(path="./data", filename="boston_data.zip")
-    compact_archive.create_zip()
+#     compact_archive = CompactArchive(path="./data", filename="boston_data.zip")
+#     compact_archive.create_zip()
