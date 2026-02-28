@@ -69,16 +69,16 @@ class UploadBlobFile:
 
 #testar manual kkkk
 
-if __name__ == "__main__":
-    # configuração básica de logging para ver o que acontece
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
+# if __name__ == "__main__":
+#     # configuração básica de logging para ver o que acontece
+#     logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 
-    connectAzure = ConnectAzureBlobStorage(account_url="https://dadosbostonmurilo.blob.core.windows.net")
-    blob_service_client = connectAzure.get_blob_service_client_account_key()
-    if blob_service_client is not None:
-        uploader = UploadBlobFile(blob_service_client=blob_service_client, 
-                                    container_name="servicosbostonzip",
-                                    blob_name="boston_data.zip",
-                                    file_path="data/dados_boston_2015.csv",
-                                    file_name="boston_data.csv")
-        uploader.upload()
+#     connectAzure = ConnectAzureBlobStorage(account_url="https://dadosbostonmurilo.blob.core.windows.net")
+#     blob_service_client = connectAzure.get_blob_service_client_account_key()
+#     if blob_service_client is not None:
+#         uploader = UploadBlobFile(blob_service_client=blob_service_client, 
+#                                     container_name="servicosbostonzip",
+#                                     blob_name="boston_data.zip",
+#                                     file_path="data/dados_boston_2015.csv",
+#                                     file_name="boston_data.csv")
+#         uploader.upload()
