@@ -1,3 +1,4 @@
+from zipfile import ZipFile, ZIP_DEFLATED
 import requests
 import logging
 import os
@@ -45,14 +46,24 @@ class CompactArchive:
         self.path = path
         self.filename = filename
 
-    def create_zip(self) -> None:
+    def create_zip(self):
         logger.info("Iniciando compactação dos arquivos baixados.")
-        base_name = os.path.join(self.path, self.filename.replace(".zip", ""))
+
+        nomesarquivos = os.listdir(self.path)
+
+        nomezip = os.path.join(self.path, self.filename)
         try:
-            shutil.make_archive(base_name, 'zip', self.path)
-            logger.info("Arquivo %s criado com sucesso.", self.filename)
+            with ZipFile(nomezip, 'w', compression=ZIP_DEFLATED) as arquivo_zip:
+                for nome in nomesarquivos:
+                    caminho_arquivo = os.path.join(self.path, nome)
+                    if os.path.isfile(caminho_arquivo):
+                        arquivo_zip.write(caminho_arquivo, arcname=nome)
+            logger.info("Compactação concluída com sucesso. Arquivo criado: %s", nomezip)
+            
         except Exception as e:
-            logger.error("Erro ao criar arquivo zip: %s", e)
+            logger.error("Erro ao compactar os arquivos: %s", e)
+
+        return len([f for f in nomesarquivos if os.path.isfile(os.path.join(self.path, f))])
 
 
 if __name__ == "__main__":
@@ -62,5 +73,5 @@ if __name__ == "__main__":
     # downloader = DataDownloader(save_path="./data")
     # downloader.download_all()
 
-    # compact_archive = CompactArchive(path="./data", filename="boston_data.zip")
-    # compact_archive.create_zip()
+    compact_archive = CompactArchive(path="./data", filename="boston_data.zip")
+    compact_archive.create_zip()
