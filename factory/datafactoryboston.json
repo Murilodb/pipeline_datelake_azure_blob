@@ -1,0 +1,9 @@
+{
+	"name": "datafactoryboston",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "65bed740-fbbc-4a91-8e42-9c8740947150",
+		"tenantId": "cd5e6d23-cb99-4189-88ab-1a9021a0c451"
+	}
+}
