@@ -16,8 +16,8 @@
 			"recurrence": {
 				"frequency": "Minute",
 				"interval": 5,
-				"startTime": "2026-03-01T13:19:00Z",
-				"timeZone": "UTC"
+				"startTime": "2026-03-01T13:19:00",
+				"timeZone": "E. South America Standard Time"
 			}
 		}
 	}
