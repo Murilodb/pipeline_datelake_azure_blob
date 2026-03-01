@@ -1,0 +1,29 @@
+{
+	"name": "ds_boston_src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStoragels",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "boston_data.zip",
+				"container": "servicosbostonzip"
+			},
+			"columnDelimiter": ",",
+			"compressionCodec": "ZipDeflate",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PK\u0003\u0004\u0014\u0000\u0000\u0000\b\u0000�\\\\�",
+				"type": "String"
+			}
+		]
+	}
+}
